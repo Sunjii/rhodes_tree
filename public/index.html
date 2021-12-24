@@ -11,9 +11,9 @@
     />
 
     <title>React App</title>
-    <script src="https://pixijs.download/release/pixi.js"></script>
   </head>
   <body>
+    <h2>HTML</h2>
     <div id="root"></div>
     <!--
       This HTML file is a template.
@@ -25,13 +25,5 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
-    <div>Hello PixiJS</div>
-    <script>
-      let app = new PIXI.Application({ width: 640, height: 360 });
-      document.body.appendChild(app.view);
-      let sprite = PIXI.Sprite.from("sample.png");
-
-      app.stage.addChild(sprite);
-    </script>
   </body>
 </html>

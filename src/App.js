@@ -1,10 +1,11 @@
 import React from "react";
-import { Main } from "./main";
+import { MainScreen } from "./MainScreen";
 
 function App() {
   return (
     <div>
-      <Main />
+      <h1>This is App.js</h1>
+      <MainScreen />
     </div>
   );
 }
