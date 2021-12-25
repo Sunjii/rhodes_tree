@@ -3,15 +3,18 @@ import { Spine, SpineSprite } from "pixi-spine";
 
 import { useApp } from "@inlet/react-pixi";
 
-export let animationNames;
+export let animationNames = [];
 
-export const SpineBoard = ({ character: characterName }) => {
+export const SpineBoard = ({ character: characterName, getAniNames }) => {
   // access the PIXI.Application
   const pixiApp = useApp();
 
   // set filename
-  const json_path = "./charset/char_1012_" + characterName + ".json";
+  const json_path = "./charset/char_" + characterName + ".json";
   console.log(characterName, json_path);
+
+  let randomnumber = Math.floor(Math.random() * 10) + 1;
+  console.log(randomnumber);
 
   // load
   useEffect(() => {
@@ -24,72 +27,25 @@ export const SpineBoard = ({ character: characterName }) => {
       animationNames = animation.state.data.skeletonData.animations.map(
         (a) => a.name
       );
-      console.log(animationNames);
+      getAniNames(animationNames);
+      //console.log(animationNames);
 
       // set the position and scale
-      animation.x = pixiApp.screen.width / 2;
+      //animation.x = pixiApp.screen.width / 2;
+      animation.x = pixiApp.screen.width / randomnumber;
       animation.y = pixiApp.screen.height;
       animation.scale.set(0.7);
 
       // set animation
-      if (animation.state.hasAnimation("Skill_2_Loop")) {
-        animation.state.setAnimation(0, "Skill_2_Loop", true);
+      if (animation.state.hasAnimation("Idle")) {
+        animation.state.setAnimation(0, "Idle", true);
         animation.state.timeScale = 1.0;
       }
 
       pixiApp.stage.addChild(animation);
     });
-  }, []);
+  }, [characterName]);
 
+  console.log("[Spine-Board] : " + characterName + " Rendered!");
   return <></>;
-
-  /*
-  //app.stage.interactive = true;
-  const pixiApp = new PIXI.Application({
-    width: 712,
-    height: 512,
-    backgroundColor: 0x1099bb,
-    resolution: window.devicePixelRatio || 1,
-  });
-  document.body.appendChild(pixiApp.view);
-
-  const container = new PIXI.Container();
-  pixiApp.stage.addChild(container);
-
-  console.log("CALL");
-  pixiApp.stop();
-
-  pixiApp.loader.add("skadi", "./charset/char_1012_skadi2.json");
-
-  pixiApp.loader.load(function (loader, resources) {
-    const animation = new Spine(resources.skadi.spineData);
-
-    console.log("BABA");
-    // set the position
-    animation.x = pixiApp.screen.width / 2;
-    animation.y = pixiApp.screen.height;
-    animation.scale.set(0.7);
-
-    if (animation.state.hasAnimation("Idle")) {
-      animation.state.setAnimation(0, "Idle", true);
-      animation.state.timeScale = 1.0;
-    }
-
-    container.addChild(animation);
-    pixiApp.start();
-  });
-
-  pixiApp.start();
-  */
-
-  /*
-  return (
-    <div>
-      <h4>SpineBoard</h4>
-      <Stage>
-        <Sprite image="./sample.png" />
-      </Stage>
-    </div>
-  );
-  */
 };

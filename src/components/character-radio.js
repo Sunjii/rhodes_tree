@@ -3,9 +3,13 @@ import React, { useState } from "react";
 export const CharacterRadio = ({ charList, getChar }) => {
   const [selectedChar, setSelectedChar] = useState();
   const handleSelected = (e) => {
-    console.log(e.target.value);
     // set
     setSelectedChar(e.target.value);
+  };
+
+  // btn click
+  const onClick = (e) => {
+    getChar(selectedChar);
   };
 
   return (
@@ -16,6 +20,7 @@ export const CharacterRadio = ({ charList, getChar }) => {
           {charList.map((value) => (
             <span>
               <input
+                key={value}
                 type="radio"
                 name="Radio"
                 value={value}
@@ -25,11 +30,17 @@ export const CharacterRadio = ({ charList, getChar }) => {
             </span>
           ))}
         </div>
+        <div>
+          {selectedChar ? (
+            <button type="button" onClick={onClick}>
+              Submit
+            </button>
+          ) : (
+            ""
+          )}
+          {selectedChar ? <p>You selected {selectedChar}</p> : ""}
+        </div>
       </form>
-      <div>
-        {selectedChar ? <button>Submit</button> : ""}
-        {selectedChar ? <p>You selected {selectedChar}</p> : ""}
-      </div>
     </div>
   );
 };
