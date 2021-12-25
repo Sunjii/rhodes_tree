@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { Spine } from "pixi-spine";
+import { Spine, SpineSprite } from "pixi-spine";
 import * as PIXI from "pixi.js";
 import {
   AnimatedSprite,
   Container,
+  PixiComponent,
   Sprite,
   Stage,
   useApp,
@@ -34,7 +35,18 @@ export const SpineBoard = () => {
 
     pixiApp.loader
       .add("skadi", "./charset/char_1012_skadi2.json")
+      //.add(spritesheet)
       .load((loader, resources) => {
+        //console.log(resources[spritesheet].data);
+
+        /*
+        setFrames(
+          Object.keys(resources[spritesheet].data).map((frame) =>
+            PIXI.Texture.from(frame)
+          )
+        );
+        */
+
         const animation = new Spine(resources.skadi.spineData);
 
         console.log("BABA");
@@ -48,7 +60,8 @@ export const SpineBoard = () => {
           animation.state.timeScale = 1.0;
         }
 
-        container.addChild(animation);
+        //container.addChild(animation);
+        pixiApp.stage.addChild(animation);
       });
   }, []);
 
