@@ -1,5 +1,5 @@
 import { Sprite, Stage } from "@inlet/react-pixi";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { AnimationList } from "./animation-list";
 import { CharacterRadio } from "./character-radio";
 import { SpineConfig } from "./spine-config";
@@ -23,8 +23,10 @@ export const MainScreen = () => {
   };
 
   const getAniNames = (name) => {
+    console.log("[MainScreen] : aniNames " + name);
     setAnimationNames(name);
   };
+
   console.log("Main Screen Rendered!");
   //<CharacterRadio charList={charList} getChar={getChar} />
 

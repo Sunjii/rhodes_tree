@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { AnimationList } from "./animation-list";
 
 export const CharacterRadio = ({
@@ -9,6 +9,7 @@ export const CharacterRadio = ({
 }) => {
   const [selectedChar, setSelectedChar] = useState();
   const [animation, setAnimation] = useState("Idle");
+  const [animationList, setAnimationList] = useState([]);
 
   const handleSelected = (e) => {
     // set
@@ -24,14 +25,26 @@ export const CharacterRadio = ({
     getAnimation(ani); // 부모에게 전달
   };
 
+  //
+  const getAnimationList = (selectedChar) => {};
+
   // btn click
   const onClick = (e) => {
     getChar(selectedChar);
     // selectedChar에 해당하는 animation 목록을 가져온다
+    ////todo
+    console.log(animationNames);
+    setAnimationList(animationNames);
+
     // animation 선택 초기화
     setAnimation("Idle");
     getAnimation("Idle");
   };
+
+  //
+  useEffect(() => {
+    console.log("FFFFFF");
+  }, [animationNames]);
 
   return (
     <div>
