@@ -87,7 +87,7 @@ export const SpineBoard = ({
       });
     } catch (error) {}
 
-    // get animation list
+    // change animation list
     const animation = pixiApp.stage.getChildByName(character);
     animationNames = animation.state.data.skeletonData.animations.map(
       (a) => a.name
