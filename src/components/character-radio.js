@@ -12,8 +12,10 @@ export const CharacterRadio = ({
 
   const handleSelected = (e) => {
     // set
-    setSelectedChar(e.target.value);
     // animation 선택 초기화
+    //setAnimation("Idle");
+    //getAnimation("Idle");
+    setSelectedChar(e.target.value);
   };
 
   const getAni = (ani) => {
@@ -26,6 +28,9 @@ export const CharacterRadio = ({
   const onClick = (e) => {
     getChar(selectedChar);
     // selectedChar에 해당하는 animation 목록을 가져온다
+    // animation 선택 초기화
+    setAnimation("Idle");
+    getAnimation("Idle");
   };
 
   return (
