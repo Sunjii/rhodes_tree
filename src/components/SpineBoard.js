@@ -1,55 +1,45 @@
 import React, { useEffect, useState } from "react";
 import { Spine, SpineSprite } from "pixi-spine";
-import * as PIXI from "pixi.js";
-import {
-  AnimatedSprite,
-  Container,
-  PixiComponent,
-  Sprite,
-  Stage,
-  useApp,
-} from "@inlet/react-pixi";
 
-export const SpineBoard = () => {
-  const [frames, setFrames] = useState([]);
+import { useApp } from "@inlet/react-pixi";
 
+export const SpineBoard = ({ character: characterName }) => {
   // access the PIXI.Application
   const pixiApp = useApp();
 
+  // set filename
+  const json_path = "./charset/char_1012_" + characterName + ".json";
+  console.log(characterName, json_path);
+
   // load
   useEffect(() => {
-    pixiApp.loader
-      .add("skadi", "./charset/char_1012_skadi2.json")
-      .load((loader, resources) => {
-        const animation = new Spine(resources.skadi.spineData);
+    pixiApp.loader.add(characterName, json_path).load((loader, resources) => {
+      //console.log(resources[characterName].spineData);
+      const animation = new Spine(resources[characterName].spineData);
 
-        console.log("BABA");
-        //console.log(animation.state.data.skeletonData.animations);
-        const animationNames = animation.state.data.skeletonData.animations.map(
-          (a) => a.name
-        );
-        console.log(animationNames);
+      console.log("BABA");
+      //console.log(animation.state.data.skeletonData.animations);
+      const animationNames = animation.state.data.skeletonData.animations.map(
+        (a) => a.name
+      );
+      console.log(animationNames);
 
-        // set the position and scale
-        animation.x = pixiApp.screen.width / 2;
-        animation.y = pixiApp.screen.height;
-        animation.scale.set(0.7);
+      // set the position and scale
+      animation.x = pixiApp.screen.width / 2;
+      animation.y = pixiApp.screen.height;
+      animation.scale.set(0.7);
 
-        // set animation
-        if (animation.state.hasAnimation("Skill_2_Loop")) {
-          animation.state.setAnimation(0, "Skill_2_Loop", true);
-          animation.state.timeScale = 1.0;
-        }
+      // set animation
+      if (animation.state.hasAnimation("Skill_2_Loop")) {
+        animation.state.setAnimation(0, "Skill_2_Loop", true);
+        animation.state.timeScale = 1.0;
+      }
 
-        pixiApp.stage.addChild(animation);
-      });
+      pixiApp.stage.addChild(animation);
+    });
   }, []);
 
-  if (frames.length === 0) {
-    return null;
-  }
-
-  return;
+  return <></>;
 
   /*
   //app.stage.interactive = true;
