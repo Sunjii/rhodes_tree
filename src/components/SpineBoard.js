@@ -6,7 +6,7 @@ import { useApp } from "@inlet/react-pixi";
 export let animationNames = [];
 
 export const SpineBoard = ({
-  character: characterName,
+  character,
   getAniNames,
   animation: selectedAnimation,
 }) => {
@@ -15,16 +15,16 @@ export const SpineBoard = ({
   pixiApp.stage.interactive = true;
 
   // set filename
-  const json_path = "./charset/char_" + characterName + ".json";
-  console.log(characterName, json_path);
+  const json_path = "./charset/char_" + character + ".json";
+  console.log(character, json_path, selectedAnimation);
 
   let randomnumber = Math.floor(Math.random() * 10) + 1;
 
   // load
   useEffect(() => {
-    pixiApp.loader.add(characterName, json_path).load((loader, resources) => {
-      //console.log(resources[characterName].spineData);
-      const animation = new Spine(resources[characterName].spineData);
+    pixiApp.loader.add(character, json_path).load((loader, resources) => {
+      //console.log(resources[character].spineData);
+      const animation = new Spine(resources[character].spineData);
 
       console.log("BABA");
       //console.log(animation.state.data.skeletonData.animations);
@@ -46,35 +46,58 @@ export const SpineBoard = ({
       pixiApp.stage.addChild(animation);
 
       // Press the screen to play a random animation
-      const allAnimations = ["Idle", "Start", "Die"];
+      //const allAnimations = ["Idle", "Start", "Die"];
       let lastAnimation = "";
 
+      /*
       pixiApp.stage.on("pointerdown", () => {
         let anis = "";
         do {
           anis =
-            allAnimations[Math.floor(Math.random() * allAnimations.length)];
+            animationNames[Math.floor(Math.random() * animationNames.length)];
         } while (anis === lastAnimation);
-        animation.state.setAnimation(0, anis);
+        animation.state.setAnimation(0, anis, true);
         lastAnimation = animation;
         console.log("Point: " + anis);
+      });
+      */
+      // my on
+      pixiApp.stage.on("myListner", () => {
+        // animation list 선택에 따라 해당 애니메이션으로 변경하기
+        let anis = selectedAnimation;
+
+        animation.state.setAnimation(0, anis, true);
+        console.log("[Spine-Board] stageOn: " + anis);
       });
 
       console.log(
         "[Spine-Board] : " +
-          characterName +
+          character +
           " with " +
           selectedAnimation +
           " Rendered!"
       );
     });
-  }, [characterName, selectedAnimation]);
+  }, [character]);
+
+  // lets render
+  useEffect(() => {
+    console.log(
+      "[Spine-Board] : SecondEffect " +
+        character +
+        " with " +
+        selectedAnimation +
+        " Rendered!"
+    );
+  }, [selectedAnimation]);
+
+  //[character, selectedAnimation]
 
   // change animation
   /*
   useEffect(() => {
     console.log(
-      "[Spine-Board] : " + selectedAnimation + " applied to " + characterName
+      "[Spine-Board] : " + selectedAnimation + " applied to " + character
     );
   }, [selectedAnimation]);
   */

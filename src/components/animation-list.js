@@ -3,7 +3,7 @@ import React, { useState } from "react";
 export const AnimationList = ({ animationNames, getAni }) => {
   // change animation
   const changeAnimation = (e) => {
-    //console.log(e.target.value);
+    console.log("[AnimationList] : " + e.target.value);
     getAni(e.target.value);
   };
 
@@ -11,16 +11,16 @@ export const AnimationList = ({ animationNames, getAni }) => {
     <div>
       <h1>Animation List</h1>
       {animationNames.map((a) => (
-        <spna>
+        <span key={a}>
           <input
             key={a}
             type="radio"
             name="animationRadio"
             value={a}
-            onChange={changeAnimation}
+            onClick={changeAnimation}
           />
           {a}
-        </spna>
+        </span>
       ))}
     </div>
   );

@@ -28,7 +28,7 @@ export const MainScreen = () => {
   console.log("Main Screen Rendered!");
   //<CharacterRadio charList={charList} getChar={getChar} />
 
-  const getAni = (ani) => {
+  const getAnimation = (ani) => {
     setAnimation(ani);
     //console.log(ani + " selected");
   };
@@ -37,13 +37,13 @@ export const MainScreen = () => {
     <div>
       <h1>Rhodes Tree</h1>
       <div>
-        <CharacterRadio charList={charList} getChar={getChar} />
+        <CharacterRadio
+          charList={charList}
+          getChar={getChar}
+          animationNames={animationNames}
+          getAnimation={getAnimation}
+        />
       </div>
-      {animationNames.length !== 0 ? (
-        <AnimationList animationNames={animationNames} getAni={getAni} />
-      ) : (
-        ""
-      )}
 
       <div>
         <h4>SpineBoard</h4>
