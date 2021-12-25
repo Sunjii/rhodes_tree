@@ -3,6 +3,8 @@ import { Spine, SpineSprite } from "pixi-spine";
 
 import { useApp } from "@inlet/react-pixi";
 
+export let animationNames;
+
 export const SpineBoard = ({ character: characterName }) => {
   // access the PIXI.Application
   const pixiApp = useApp();
@@ -19,7 +21,7 @@ export const SpineBoard = ({ character: characterName }) => {
 
       console.log("BABA");
       //console.log(animation.state.data.skeletonData.animations);
-      const animationNames = animation.state.data.skeletonData.animations.map(
+      animationNames = animation.state.data.skeletonData.animations.map(
         (a) => a.name
       );
       console.log(animationNames);
