@@ -10,57 +10,37 @@ import {
   useApp,
 } from "@inlet/react-pixi";
 
-const [width, height] = [500, 500];
-const spritesheet = "./charset/char_1012_skadi2.json";
-
 export const SpineBoard = () => {
   const [frames, setFrames] = useState([]);
-  const [rot, setRot] = useState(0);
 
   // access the PIXI.Application
   const pixiApp = useApp();
-  const container = new PIXI.Container();
 
   // load
   useEffect(() => {
-    /*
-    pixiApp.loader.add(spritesheet).load((loader, resource) => {
-      setFrames(
-        Object.keys(resource[spritesheet].data.frames).map((frame) =>
-          PIXI.Texture.from(frame)
-        )
-      );
-    });
-    */
-
     pixiApp.loader
       .add("skadi", "./charset/char_1012_skadi2.json")
-      //.add(spritesheet)
       .load((loader, resources) => {
-        //console.log(resources[spritesheet].data);
-
-        /*
-        setFrames(
-          Object.keys(resources[spritesheet].data).map((frame) =>
-            PIXI.Texture.from(frame)
-          )
-        );
-        */
-
         const animation = new Spine(resources.skadi.spineData);
 
         console.log("BABA");
-        // set the position
+        //console.log(animation.state.data.skeletonData.animations);
+        const animationNames = animation.state.data.skeletonData.animations.map(
+          (a) => a.name
+        );
+        console.log(animationNames);
+
+        // set the position and scale
         animation.x = pixiApp.screen.width / 2;
         animation.y = pixiApp.screen.height;
         animation.scale.set(0.7);
 
-        if (animation.state.hasAnimation("Idle")) {
-          animation.state.setAnimation(0, "Idle", true);
+        // set animation
+        if (animation.state.hasAnimation("Skill_2_Loop")) {
+          animation.state.setAnimation(0, "Skill_2_Loop", true);
           animation.state.timeScale = 1.0;
         }
 
-        //container.addChild(animation);
         pixiApp.stage.addChild(animation);
       });
   }, []);
@@ -69,16 +49,7 @@ export const SpineBoard = () => {
     return null;
   }
 
-  return (
-    <Container x={pixiApp.screen.width / 2} t={pixiApp.screen.height}>
-      <AnimatedSprite
-        animationSpeed={0.7}
-        isPlaying={true}
-        textures={frames}
-        anchor={0.5}
-      />
-    </Container>
-  );
+  return;
 
   /*
   //app.stage.interactive = true;
