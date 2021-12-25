@@ -33,7 +33,7 @@ export const CharacterRadio = ({ charList, getChar }) => {
         <div>
           {selectedChar ? (
             <button type="button" onClick={onClick}>
-              Submit
+              Select
             </button>
           ) : (
             ""

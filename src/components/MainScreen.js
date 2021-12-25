@@ -31,6 +31,19 @@ export const MainScreen = () => {
       <div>
         <CharacterRadio charList={charList} getChar={getChar} />
       </div>
+      {animationNames.length !== 0 ? (
+        <div>
+          <h1>Animation List</h1>
+          {animationNames.map((a) => (
+            <spna>
+              <input key={a} type="radio" value={a} />
+              {a}
+            </spna>
+          ))}
+        </div>
+      ) : (
+        ""
+      )}
 
       <div>
         <h4>SpineBoard</h4>
@@ -38,12 +51,7 @@ export const MainScreen = () => {
           <SpineBoard character={character} getAniNames={getAniNames} />
         </Stage>
       </div>
-      <div>
-        <h1>Animation List</h1>
-        {animationNames.map((a) => (
-          <spna>{a} </spna>
-        ))}
-      </div>
+
       <p>
         Arknights © is owned by Hypergryph, Yostar | All logos and trademarks
         are property of their respective owners.
