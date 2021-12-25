@@ -17,7 +17,7 @@ export const CharacterRadio = ({
   };
 
   const getAni = (ani) => {
-    console.log("[CharacterRadio] : ani = " + ani);
+    //console.log("[CharacterRadio] : ani = " + ani);
     setAnimation(ani);
     getAnimation(ani); // 부모에게 전달
   };

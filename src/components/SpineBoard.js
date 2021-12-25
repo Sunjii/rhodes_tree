@@ -25,8 +25,9 @@ export const SpineBoard = ({
     pixiApp.loader.add(character, json_path).load((loader, resources) => {
       //console.log(resources[character].spineData);
       const animation = new Spine(resources[character].spineData);
-
       console.log("BABA");
+
+      // get animation list
       //console.log(animation.state.data.skeletonData.animations);
       animationNames = animation.state.data.skeletonData.animations.map(
         (a) => a.name
@@ -43,7 +44,13 @@ export const SpineBoard = ({
       animation.state.setAnimation(0, selectedAnimation, true);
       animation.state.timeScale = 1.0;
 
+      // addChild
+      animation.name = character;
       pixiApp.stage.addChild(animation);
+
+      console.log("[Spine-Board] FirstEffect : ");
+      console.log(animation.name);
+      console.log(pixiApp.stage);
 
       // Press the screen to play a random animation
       //const allAnimations = ["Idle", "Start", "Die"];
@@ -82,6 +89,14 @@ export const SpineBoard = ({
 
   // lets render
   useEffect(() => {
+    const animation = pixiApp.stage.getChildByName(character);
+    console.log("[Spine-Board] SecondEffect : pixiApp.stage");
+    console.log(pixiApp.stage);
+    console.log("[Spine-Board] SecondEffect : animation");
+    console.log(animation);
+
+    animation.state.setAnimation(0, selectedAnimation, true);
+
     console.log(
       "[Spine-Board] : SecondEffect " +
         character +
