@@ -1,5 +1,6 @@
 import { Sprite, Stage } from "@inlet/react-pixi";
 import React, { useState } from "react";
+import { AnimationList } from "./animation-list";
 import { CharacterRadio } from "./character-radio";
 import { SpineConfig } from "./spine-config";
 import { animationNames, SpineBoard } from "./SpineBoard";
@@ -12,6 +13,7 @@ export const MainScreen = () => {
     "don't touch",
   ]);
   const [animationNames, setAnimationNames] = useState([]);
+  const [animation, setAnimation] = useState("Idle");
 
   const getChar = (character) => {
     setCharacter(character);
@@ -25,6 +27,12 @@ export const MainScreen = () => {
   };
   console.log("Main Screen Rendered!");
   //<CharacterRadio charList={charList} getChar={getChar} />
+
+  const getAni = (ani) => {
+    setAnimation(ani);
+    //console.log(ani + " selected");
+  };
+
   return (
     <div>
       <h1>Rhodes Tree</h1>
@@ -32,15 +40,7 @@ export const MainScreen = () => {
         <CharacterRadio charList={charList} getChar={getChar} />
       </div>
       {animationNames.length !== 0 ? (
-        <div>
-          <h1>Animation List</h1>
-          {animationNames.map((a) => (
-            <spna>
-              <input key={a} type="radio" value={a} />
-              {a}
-            </spna>
-          ))}
-        </div>
+        <AnimationList animationNames={animationNames} getAni={getAni} />
       ) : (
         ""
       )}
@@ -48,7 +48,11 @@ export const MainScreen = () => {
       <div>
         <h4>SpineBoard</h4>
         <Stage options={SpineConfig.stage}>
-          <SpineBoard character={character} getAniNames={getAniNames} />
+          <SpineBoard
+            character={character}
+            getAniNames={getAniNames}
+            animation={animation}
+          />
         </Stage>
       </div>
 

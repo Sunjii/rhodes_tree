@@ -5,6 +5,7 @@ export const CharacterRadio = ({ charList, getChar }) => {
   const handleSelected = (e) => {
     // set
     setSelectedChar(e.target.value);
+    // animation 선택 초기화
   };
 
   // btn click
@@ -18,7 +19,7 @@ export const CharacterRadio = ({ charList, getChar }) => {
       <form>
         <div>
           {charList.map((value) => (
-            <span>
+            <span key={value}>
               <input
                 key={value}
                 type="radio"
