@@ -69,62 +69,60 @@ export const SpineBoard = ({
   console.log(character, json_path, selectedAnimation);
   let randomnumber = Math.floor(Math.random() * 10) + 1;
 
-  // TODO: Spwan 버튼 누를 때 마다 캐릭터 생성하도록 수정
-
   // load
   useEffect(() => {
     console.log("[Spine-Board] firstEffect : Start...");
+    //
+
     try {
-      pixiApp.loader.add(character, json_path).load((loader, resources) => {
-        const animation = new Spine(resources[character].spineData);
-        console.log("[Spine-Board] firstEffect : In loader.add");
+      pixiApp.loader.add(character, json_path);
+    } catch (error) {}
 
-        // get animation list
-        animationNames = animation.state.data.skeletonData.animations.map(
-          (a) => a.name
-        );
-        animationNames.push("Delete");
-        getAniNames(animationNames);
+    pixiApp.loader.load((loader, resources) => {
+      const animation = new Spine(resources[character].spineData);
+      console.log("[Spine-Board] firstEffect : In loader.add");
 
-        // mouse and touch envets
-        animation.interactive = true;
-        animation.buttonMode = true;
+      // get animation list
+      animationNames = animation.state.data.skeletonData.animations.map(
+        (a) => a.name
+      );
+      animationNames.push("Delete");
+      getAniNames(animationNames);
 
-        // set the position and scale
-        animation.x = pixiApp.screen.width / randomnumber;
-        animation.y = pixiApp.screen.height;
-        animation.scale.set(0.5);
+      // mouse and touch envets
+      animation.interactive = true;
+      animation.buttonMode = true;
 
-        // set animation
-        animation.state.setAnimation(0, selectedAnimation, true);
-        animation.state.timeScale = 1.0;
+      // set the position and scale
+      animation.x = pixiApp.screen.width / randomnumber;
+      animation.y = pixiApp.screen.height;
+      animation.scale.set(0.5);
 
-        // add listner
-        animation.addListener("pointerdown", onDragStart);
-        animation.addListener("pointerup", onDragEnd);
-        animation.addListener("pointerupoutside", onDragEnd);
+      // set animation
+      animation.state.setAnimation(0, selectedAnimation, true);
+      animation.state.timeScale = 1.0;
 
-        // addChild
-        animation.name = character;
-        pixiApp.stage.addChild(animation);
+      // add listner
+      animation.addListener("pointerdown", onDragStart);
+      animation.addListener("pointerup", onDragEnd);
+      animation.addListener("pointerupoutside", onDragEnd);
 
-        console.log("[Spine-Board] FirstEffect : ");
-        console.log(animation.name);
-        console.log(pixiApp.stage);
+      // addChild
+      animation.name = character;
+      pixiApp.stage.addChild(animation);
 
-        console.log(
-          "[Spine-Board] : " +
-            character +
-            " with " +
-            selectedAnimation +
-            " Rendered!"
-        );
-      });
-    } catch (error) {
-      console.log("[Spine-Board] FirstEffect : error");
-      console.log(error);
-    }
-    console.log("[Spine-Board] firstEffect : out loader.add");
+      console.log("[Spine-Board] FirstEffect : ");
+      console.log(animation.name);
+      console.log(pixiApp.stage);
+
+      console.log(
+        "[Spine-Board] : " +
+          character +
+          " with " +
+          selectedAnimation +
+          " Rendered!"
+      );
+    });
 
     // change animation list
     try {
@@ -135,8 +133,11 @@ export const SpineBoard = ({
       animationNames.push("Delete");
       getAniNames(animationNames);
     } catch (error) {
+      console.log("[Spine-Board] firstEffect: fail to change animation list");
       console.log(error);
     }
+
+    console.log("[Spine-Board] firstEffect : out loader.add");
   }, [character]);
 
   // Change animation!!
@@ -155,7 +156,7 @@ export const SpineBoard = ({
       // 아니면 그냥 0번만 지우도록?
       animation.parent.removeChildAt(0); // container 에서 지워진 건 확인
       // loader에서 삭제
-      pixiApp.loader.destroy();
+      //pixiApp.loader.destroy();
 
       // 삭제 후 delete 선택한 내역도 초기화 (delete 연달아 누를 수 있게)
       //selectedAnimation = "";
@@ -164,23 +165,25 @@ export const SpineBoard = ({
       console.log(animation);
       console.log(pixiApp.stage);
       return;
+    } else {
+      // set Animation
+      try {
+        animation.state.setAnimation(0, selectedAnimation, true);
+        getAnimationInitialize("");
+        console.log(
+          "[Spine-Board] : SecondEffect " +
+            character +
+            " with " +
+            selectedAnimation +
+            " Rendered!"
+        );
+      } catch (error) {
+        console.log(error);
+      }
     }
-
-    // set Animation
-    try {
-      animation.state.setAnimation(0, selectedAnimation, true);
-    } catch (error) {
-      console.log(error);
-    }
-    getAnimationInitialize("");
-
-    console.log(
-      "[Spine-Board] : SecondEffect " +
-        character +
-        " with " +
-        selectedAnimation +
-        " Rendered!"
-    );
+    //
+    //
+    //
   }, [selectedAnimation]);
 
   return <></>;

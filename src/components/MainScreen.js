@@ -6,7 +6,7 @@ import { SpineConfig } from "../config/spine-config";
 import { animationNames, SpineBoard } from "./SpineBoard";
 
 export const MainScreen = () => {
-  const [character, setCharacter] = useState();
+  const [character, setCharacter] = useState("None");
   const [charList, setCharList] = useState([
     "1012_skadi2",
     "003_kalts",
@@ -18,10 +18,27 @@ export const MainScreen = () => {
   const [pixiApp, setPixiApp] = useState();
 
   const getChar = (character) => {
-    // TODO: getChar를 통해 캐릭터 선택을 입력받는다
+    // TODO: 중복 생성 이슈- getChar를 통해 캐릭터 선택을 입력받는다
     // 이를 Spine-board로 보내서 캐릭터를 load하게 되는데, useEffect 함수의 내이므로
     // 같은 캐릭터 선택 시에는 생성이 되지 않음..
-    // 혹은 delete 후 생성되는 걸 봐서는 삭제해야 바뀌나(?)
+    // 그런데 왜 delete 후에는 중복생성이 되는걸까?
+
+    /*
+    현재 까지 파악한 결과...
+    A 생성 - B 생성 - 삭제(A) - A 생성(성공) - B 생성(성공) - 여기서는 삭제를 하지 않는 이상 더 생성되지 않음
+    그러나 위에 다시 삭제를 하면...
+    .. - 삭제(B) - B 생성(성공) - A 생성(성공)
+
+    삭제를 하게 되면 A와 B 둘다 다시 생성할 수 있음.
+    단 이전에 클릭한 애는 바로 만들지 못하고 다른 애가 만들어져야 만들어짐...
+
+    // FIXME: 삭제 후 다시 loader.add 과정에서 중복 전송 하지 않도록
+    // 추가적으로 확인한 사항
+    // 삭제를 하면 loader에서 지워지므로
+    // 다시 서버에서 json과 atlas를 받아오는 현상 발생.. png는 받아오진 않음
+
+    */
+
     setCharacter(character);
     // 정보를 spine-board에게로 넘기기
 
