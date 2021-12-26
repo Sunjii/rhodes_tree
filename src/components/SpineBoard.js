@@ -9,9 +9,11 @@ export const SpineBoard = ({
   character,
   getAniNames,
   animation: selectedAnimation,
+  getPixiApp,
 }) => {
   // access the PIXI.Application
   const pixiApp = useApp();
+  getPixiApp(pixiApp);
   pixiApp.stage.interactive = true;
 
   pixiApp.stage.hitArea = pixiApp.renderer.screen;
@@ -82,10 +84,13 @@ export const SpineBoard = ({
       a.remove();
     }, "image/png");
   }
+  // pixiApp.renderer.plugins.interaction.on( takeScreenshot);
+  /*
   pixiApp.renderer.plugins.interaction.on(
     "screenshotBtnListner",
     takeScreenshot
   );
+  */
 
   // load
   useEffect(() => {

@@ -15,6 +15,8 @@ export const MainScreen = () => {
   const [animationNames, setAnimationNames] = useState([]);
   const [animation, setAnimation] = useState("Idle");
 
+  const [pixiApp, setPixiApp] = useState();
+
   const getChar = (character) => {
     setCharacter(character);
     console.log("getChar: " + character);
@@ -36,8 +38,24 @@ export const MainScreen = () => {
   let wait = false;
   let waiting = false;
   const onClickScreenshot = () => {
-    wait = true;
+    takeScreenshot();
   };
+
+  const getPixiApp = (p) => {
+    setPixiApp(p);
+  };
+
+  function takeScreenshot() {
+    wait = true;
+    pixiApp.renderer.plugins.extract.canvas(pixiApp.stage).toBlob((b) => {
+      const a = document.createElement("a");
+      document.body.append(a);
+      a.download = "screenshot";
+      a.href = URL.createObjectURL(b);
+      a.click();
+      a.remove();
+    }, "image/png");
+  }
 
   return (
     <div>
@@ -58,6 +76,7 @@ export const MainScreen = () => {
             character={character}
             getAniNames={getAniNames}
             animation={animation}
+            getPixiApp={getPixiApp}
           />
         </Stage>
       </div>
