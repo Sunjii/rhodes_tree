@@ -66,37 +66,17 @@ export const SpineBoard = ({
   // set filename
   const json_path = "./charset/char_" + character + ".json";
   console.log(character, json_path, selectedAnimation);
-
   let randomnumber = Math.floor(Math.random() * 10) + 1;
 
-  // screenshot action
-  // TODO: MainScreen 의 버튼으로 활성화 되도록 수정
-  let wait = false;
-  let waiting = false;
-  function takeScreenshot() {
-    wait = true;
-    pixiApp.renderer.plugins.extract.canvas(pixiApp.stage).toBlob((b) => {
-      const a = document.createElement("a");
-      document.body.append(a);
-      a.download = "screenshot";
-      a.href = URL.createObjectURL(b);
-      a.click();
-      a.remove();
-    }, "image/png");
-  }
-  // pixiApp.renderer.plugins.interaction.on( takeScreenshot);
-  /*
-  pixiApp.renderer.plugins.interaction.on(
-    "screenshotBtnListner",
-    takeScreenshot
-  );
-  */
+  // TODO: Spwan 버튼 누를 때 마다 캐릭터 생성하도록 수정
 
   // load
   useEffect(() => {
+    console.log("[Spine-Board] firstEffect : Start...");
     try {
       pixiApp.loader.add(character, json_path).load((loader, resources) => {
         const animation = new Spine(resources[character].spineData);
+        console.log("[Spine-Board] firstEffect : In loader.add");
 
         // get animation list
         animationNames = animation.state.data.skeletonData.animations.map(
@@ -143,6 +123,7 @@ export const SpineBoard = ({
       console.log("[Spine-Board] FirstEffect : error");
       console.log(error);
     }
+    console.log("[Spine-Board] firstEffect : out loader.add");
 
     // change animation list
     try {
@@ -190,6 +171,9 @@ export const SpineBoard = ({
     } catch (error) {
       console.log(error);
     }
+
+    // FIXME: set to null
+    //selectedAnimation = null;
 
     console.log(
       "[Spine-Board] : SecondEffect " +

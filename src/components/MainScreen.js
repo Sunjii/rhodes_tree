@@ -18,7 +18,13 @@ export const MainScreen = () => {
   const [pixiApp, setPixiApp] = useState();
 
   const getChar = (character) => {
+    // TODO: getChar를 통해 캐릭터 선택을 입력받는다
+    // 이를 Spine-board로 보내서 캐릭터를 load하게 되는데, useEffect 함수의 내이므로
+    // 같은 캐릭터 선택 시에는 생성이 되지 않음..
+    // 혹은 delete 후 생성되는 걸 봐서는 삭제해야 바뀌나(?)
     setCharacter(character);
+    // 정보를 spine-board에게로 넘기기
+
     console.log("getChar: " + character);
   };
 

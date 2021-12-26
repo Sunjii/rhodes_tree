@@ -32,6 +32,12 @@ export const CharacterRadio = ({
     // animation 선택 초기화
     setAnimation("Idle");
     getAnimation("Idle");
+    // character 선택 초기화
+    try {
+      for (let r in document.getElementsByName("CRadio")) {
+        document.getElementsByName("CRadio")[r].checked = false;
+      }
+    } catch (error) {}
   };
 
   return (
@@ -44,7 +50,7 @@ export const CharacterRadio = ({
               <input
                 key={value}
                 type="radio"
-                name="Radio"
+                name="CRadio"
                 value={value}
                 onChange={handleSelected}
               />{" "}
@@ -55,7 +61,7 @@ export const CharacterRadio = ({
         <div>
           {selectedChar ? (
             <button type="button" onClick={onClick}>
-              Select
+              Spwan
             </button>
           ) : (
             ""

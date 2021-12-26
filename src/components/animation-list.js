@@ -6,7 +6,6 @@ export const AnimationList = ({ animationNames, getAni }) => {
     getAni(e.target.value);
     console.log(e.target.value);
     e.preventDefault();
-    e.stopPropagation();
   };
 
   return (
