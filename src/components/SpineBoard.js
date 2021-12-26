@@ -38,7 +38,6 @@ export const SpineBoard = ({
   }
 
   function onDragMove(e) {
-    // FIXME: Uncaught TypeError: Cannot read properties of undefined (reading 'x')
     console.log("[Spine-Board]onDragMove: ");
     console.log(selectedTarget);
     console.log("[Spine-Board]onDragMove: ");
@@ -47,11 +46,15 @@ export const SpineBoard = ({
   }
 
   function onClick(e) {
-    console.log("[Spine-Board]onClick: " + selectedTarget);
-    console.log(e);
-    // FIXME: Uncaught TypeError: Cannot read properties of undefined (reading 'x')
+    //console.log("[Spine-Board]onClick: " + selectedTarget);
+    //console.log(e);
     if (selectedTarget) {
+      // FIXME: 모든 캐릭터가 같이 딸려오는 문제
+      console.log("[Spine-Board]onClick: ");
+      console.log(selectedTarget);
       selectedTarget.position.copyFrom(e.data.global);
+      // selectedTarget 초기화
+      selectedTarget = null;
     }
   }
 
