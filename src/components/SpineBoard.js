@@ -11,6 +11,7 @@ export const SpineBoard = ({
   animation: selectedAnimation,
   getPixiApp,
   getAnimationInitialize,
+  getCharacterToArr,
 }) => {
   // access the PIXI.Application
   const pixiApp = useApp();
@@ -78,51 +79,62 @@ export const SpineBoard = ({
       pixiApp.loader.add(character, json_path);
     } catch (error) {}
 
-    pixiApp.loader.load((loader, resources) => {
-      const animation = new Spine(resources[character].spineData);
-      console.log("[Spine-Board] firstEffect : In loader.add");
+    try {
+      pixiApp.loader.load((loader, resources) => {
+        if (character !== "None") {
+          const animation = new Spine(resources[character].spineData);
+          console.log("[Spine-Board] firstEffect : In loader.add");
 
-      // get animation list
-      animationNames = animation.state.data.skeletonData.animations.map(
-        (a) => a.name
-      );
-      animationNames.push("Delete");
-      getAniNames(animationNames);
+          // get animation list
+          animationNames = animation.state.data.skeletonData.animations.map(
+            (a) => a.name
+          );
+          animationNames.push("Delete");
+          getAniNames(animationNames);
 
-      // mouse and touch envets
-      animation.interactive = true;
-      animation.buttonMode = true;
+          // mouse and touch envets
+          animation.interactive = true;
+          animation.buttonMode = true;
 
-      // set the position and scale
-      animation.x = pixiApp.screen.width / randomnumber;
-      animation.y = pixiApp.screen.height;
-      animation.scale.set(0.5);
+          // set the position and scale
+          animation.x = pixiApp.screen.width / randomnumber;
+          animation.y = pixiApp.screen.height;
+          animation.scale.set(0.5);
 
-      // set animation
-      animation.state.setAnimation(0, selectedAnimation, true);
-      animation.state.timeScale = 1.0;
+          // set animation
+          animation.state.setAnimation(0, selectedAnimation, true);
+          animation.state.timeScale = 1.0;
 
-      // add listner
-      animation.addListener("pointerdown", onDragStart);
-      animation.addListener("pointerup", onDragEnd);
-      animation.addListener("pointerupoutside", onDragEnd);
+          // add listner
+          animation.addListener("pointerdown", onDragStart);
+          animation.addListener("pointerup", onDragEnd);
+          animation.addListener("pointerupoutside", onDragEnd);
 
-      // addChild
-      animation.name = character;
-      pixiApp.stage.addChild(animation);
+          // addChild
+          animation.name = character;
+          pixiApp.stage.addChild(animation);
 
-      console.log("[Spine-Board] FirstEffect : ");
-      console.log(animation.name);
-      console.log(pixiApp.stage);
+          console.log("[Spine-Board] FirstEffect : ");
+          console.log(animation.name);
+          console.log(pixiApp.stage);
 
-      console.log(
-        "[Spine-Board] : " +
-          character +
-          " with " +
-          selectedAnimation +
-          " Rendered!"
-      );
-    });
+          // character 선택사항 배열에 저장해서 관리
+          getCharacterToArr(character);
+
+          console.log(
+            "[Spine-Board] : " +
+              character +
+              " with " +
+              selectedAnimation +
+              " Rendered!"
+          );
+        } else {
+          console.log("None can't read...");
+        }
+      });
+    } catch (error) {
+      console.log();
+    }
 
     // change animation list
     try {
@@ -156,7 +168,9 @@ export const SpineBoard = ({
       // 아니면 그냥 0번만 지우도록?
       // idea 1. 따로 목록을 만들어서 삭제할 수 있게 하자 like todo-list
 
-      animation.parent.removeChildAt(0);
+      try {
+        pixiApp.stage.removeChildAt(0);
+      } catch (error) {}
 
       // 삭제 후 delete 선택한 내역도 초기화 (delete 연달아 누를 수 있게)
       getAnimationInitialize("");

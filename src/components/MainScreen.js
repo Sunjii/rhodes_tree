@@ -7,6 +7,13 @@ import { animationNames, SpineBoard } from "./SpineBoard";
 
 export const MainScreen = () => {
   const [character, setCharacter] = useState("None");
+
+  const [characterList, setCharacterList] = useState({
+    id: "",
+    characterName: "",
+  });
+  const { id, characterName } = characterList;
+
   const [charList, setCharList] = useState([
     "1012_skadi2",
     "003_kalts",
@@ -49,6 +56,11 @@ export const MainScreen = () => {
   const getAnimationInitialize = (a) => {
     setAnimation(a);
   };
+  const getCharacterToArr = (c) => {
+    // TODO : 캐릭터 생성 내역을 배열로 관리하자!
+
+    setCharacter("None");
+  };
 
   function takeScreenshot() {
     wait = true;
@@ -83,6 +95,7 @@ export const MainScreen = () => {
             animation={animation}
             getPixiApp={getPixiApp}
             getAnimationInitialize={getAnimationInitialize}
+            getCharacterToArr={getCharacterToArr}
           />
         </Stage>
       </div>
