@@ -134,7 +134,10 @@ export const SpineBoard = ({
             " Rendered!"
         );
       });
-    } catch (error) {}
+    } catch (error) {
+      console.log("[Spine-Board] FirstEffect : error");
+      console.log(error);
+    }
 
     // change animation list
     try {
@@ -160,6 +163,23 @@ export const SpineBoard = ({
     // TODO: if animation is 'delete' delete the 'SPINE'
     if (selectedAnimation === "Delete") {
       console.log("[Spine-Board] SecondEffect : Delete 선택");
+      // FIXME: pixiApp.loader.add 된 것을 지워도 already exists가 뜨는 현상
+      console.log(animation);
+      ///animation.parent.removeChild(0);
+      animation.parent.removeChildAt(0); // container 에서 지워진 건 확인
+      // 그러나 loader에서 안 지워짐..
+
+      //
+      pixiApp.loader.destroy();
+
+      //animation.destroy();
+      //pixiApp.stage.removeChild(animation);
+
+      //pixiApp.loader.reset();
+      console.log(animation);
+      console.log(pixiApp.stage);
+      console.log();
+      return;
     }
 
     // set Animation
