@@ -154,12 +154,11 @@ export const SpineBoard = ({
 
       // TODO: index 기반 삭제가 아닌, 이름으로 삭제하도록 해야함
       // 아니면 그냥 0번만 지우도록?
-      animation.parent.removeChildAt(0); // container 에서 지워진 건 확인
-      // loader에서 삭제
-      //pixiApp.loader.destroy();
+      // idea 1. 따로 목록을 만들어서 삭제할 수 있게 하자 like todo-list
+
+      animation.parent.removeChildAt(0);
 
       // 삭제 후 delete 선택한 내역도 초기화 (delete 연달아 누를 수 있게)
-      //selectedAnimation = "";
       getAnimationInitialize("");
 
       console.log(animation);
