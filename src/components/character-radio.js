@@ -22,9 +22,6 @@ export const CharacterRadio = ({
     getAnimation(ani); // 부모에게 전달
   };
 
-  // FIXME: 아마 필요 없을듯..?
-  const getAnimationList = (selectedChar) => {};
-
   // btn click
   const onClick = (e) => {
     getChar(selectedChar);

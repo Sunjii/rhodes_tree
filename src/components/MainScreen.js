@@ -33,6 +33,11 @@ export const MainScreen = () => {
 
   // TODO: screen shot 기능 추가
   // 가능하다면..? gif 짤 쪄내기
+  let wait = false;
+  let waiting = false;
+  const onClickScreenshot = () => {
+    wait = true;
+  };
 
   return (
     <div>
@@ -56,6 +61,7 @@ export const MainScreen = () => {
           />
         </Stage>
       </div>
+      <button onClick={onClickScreenshot}>Screenshot</button>
 
       <p>
         Arknights © is owned by Hypergryph, Yostar | All logos and trademarks

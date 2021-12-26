@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Spine, SpineSprite } from "pixi-spine";
 import * as PIXI from "pixi.js";
-import { applyDefaultProps, useApp } from "@inlet/react-pixi";
+import { applyDefaultProps, Sprite, useApp } from "@inlet/react-pixi";
 
 export let animationNames = [];
 
@@ -41,7 +41,10 @@ export const SpineBoard = ({
     console.log(selectedTarget);
     console.log("[Spine-Board]onDragMove: ");
     console.log(e);
-    // FIXME: e.data.global 가공 필요. 클릭 지점으로 캐릭터의 '중앙'이 오도록 설정
+    // 중앙
+    e.data.global.x -= 0;
+    e.data.global.y += 50;
+
     selectedTarget.parent.toLocal(e.data.global, null, selectedTarget.position);
   }
 
@@ -49,6 +52,9 @@ export const SpineBoard = ({
     if (selectedTarget) {
       console.log("[Spine-Board]onClick: ");
       console.log(selectedTarget);
+      // 중앙
+      e.data.global.x -= 0;
+      e.data.global.y += 50;
       selectedTarget.position.copyFrom(e.data.global);
       // selectedTarget 초기화
       selectedTarget = null;
@@ -60,6 +66,26 @@ export const SpineBoard = ({
   console.log(character, json_path, selectedAnimation);
 
   let randomnumber = Math.floor(Math.random() * 10) + 1;
+
+  // screenshot action
+  // TODO: MainScreen 의 버튼으로 활성화 되도록 수정
+  let wait = false;
+  let waiting = false;
+  function takeScreenshot() {
+    wait = true;
+    pixiApp.renderer.plugins.extract.canvas(pixiApp.stage).toBlob((b) => {
+      const a = document.createElement("a");
+      document.body.append(a);
+      a.download = "screenshot";
+      a.href = URL.createObjectURL(b);
+      a.click();
+      a.remove();
+    }, "image/png");
+  }
+  pixiApp.renderer.plugins.interaction.on(
+    "screenshotBtnListner",
+    takeScreenshot
+  );
 
   // load
   useEffect(() => {
@@ -100,16 +126,6 @@ export const SpineBoard = ({
         console.log(animation.name);
         console.log(pixiApp.stage);
 
-        // FIXME: myListner 필요 없으면 삭제 예정...
-        /*
-        pixiApp.stage.on("myListner", () => {
-          // animation list 선택에 따라 해당 애니메이션으로 변경하기
-          let anis = selectedAnimation;
-          animation.state.setAnimation(0, anis, true);
-          console.log("[Spine-Board] stageOn: " + anis);
-        });
-        */
-
         console.log(
           "[Spine-Board] : " +
             character +
@@ -126,6 +142,7 @@ export const SpineBoard = ({
       animationNames = animation.state.data.skeletonData.animations.map(
         (a) => a.name
       );
+      animationNames.push("Delete");
       getAniNames(animationNames);
     } catch (error) {
       console.log(error);
