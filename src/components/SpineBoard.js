@@ -10,6 +10,7 @@ export const SpineBoard = ({
   getAniNames,
   animation: selectedAnimation,
   getPixiApp,
+  getAnimationInitialize,
 }) => {
   // access the PIXI.Application
   const pixiApp = useApp();
@@ -146,22 +147,22 @@ export const SpineBoard = ({
     console.log("[Spine-Board] SecondEffect : animation");
     console.log(animation);
 
-    // TODO: if animation is 'delete' delete the 'SPINE'
     if (selectedAnimation === "Delete") {
       console.log("[Spine-Board] SecondEffect : Delete 선택");
       console.log(animation);
 
       // TODO: index 기반 삭제가 아닌, 이름으로 삭제하도록 해야함
+      // 아니면 그냥 0번만 지우도록?
       animation.parent.removeChildAt(0); // container 에서 지워진 건 확인
       // loader에서 삭제
       pixiApp.loader.destroy();
 
-      //animation.destroy();
-      //pixiApp.stage.removeChild(animation);
+      // 삭제 후 delete 선택한 내역도 초기화 (delete 연달아 누를 수 있게)
+      //selectedAnimation = "";
+      getAnimationInitialize("");
 
       console.log(animation);
       console.log(pixiApp.stage);
-      console.log();
       return;
     }
 
@@ -171,9 +172,7 @@ export const SpineBoard = ({
     } catch (error) {
       console.log(error);
     }
-
-    // FIXME: set to null
-    //selectedAnimation = null;
+    getAnimationInitialize("");
 
     console.log(
       "[Spine-Board] : SecondEffect " +

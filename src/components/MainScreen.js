@@ -50,6 +50,9 @@ export const MainScreen = () => {
   const getPixiApp = (p) => {
     setPixiApp(p);
   };
+  const getAnimationInitialize = (a) => {
+    setAnimation(a);
+  };
 
   function takeScreenshot() {
     wait = true;
@@ -83,6 +86,7 @@ export const MainScreen = () => {
             getAniNames={getAniNames}
             animation={animation}
             getPixiApp={getPixiApp}
+            getAnimationInitialize={getAnimationInitialize}
           />
         </Stage>
       </div>
