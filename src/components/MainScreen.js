@@ -31,6 +31,9 @@ export const MainScreen = () => {
     setAnimation(ani);
   };
 
+  // TODO: screen shot 기능 추가
+  // 가능하다면..? gif 짤 쪄내기
+
   return (
     <div>
       <h1>Rhodes Tree</h1>

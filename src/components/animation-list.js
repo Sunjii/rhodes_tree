@@ -8,7 +8,7 @@ export const AnimationList = ({ animationNames, getAni }) => {
 
   return (
     <div>
-      <h1>Animation List</h1>
+      <h2>Animation List</h2>
       {animationNames.map((a) => (
         <span key={a}>
           <input

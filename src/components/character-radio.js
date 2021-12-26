@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { AnimationList } from "./animation-list";
+import { CharacterSizeBar } from "./character-size-bar";
 
 export const CharacterRadio = ({
   charList,
@@ -64,6 +65,7 @@ export const CharacterRadio = ({
           )}
           {selectedChar ? <p>You selected {selectedChar}</p> : ""}
         </div>
+        <div>{selectedChar ? <CharacterSizeBar /> : ""}</div>
         <div>
           {animationNames.length !== 0 ? (
             <AnimationList animationNames={animationNames} getAni={getAni} />
