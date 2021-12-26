@@ -4,6 +4,9 @@ export const AnimationList = ({ animationNames, getAni }) => {
   // change animation
   const changeAnimation = (e) => {
     getAni(e.target.value);
+    console.log(e.target.value);
+    e.preventDefault();
+    e.stopPropagation();
   };
 
   return (
@@ -11,14 +14,9 @@ export const AnimationList = ({ animationNames, getAni }) => {
       <h2>Animation List</h2>
       {animationNames.map((a) => (
         <span key={a}>
-          <input
-            key={a}
-            type="radio"
-            name="animationRadio"
-            value={a}
-            onClick={changeAnimation}
-          />
-          {a}
+          <button value={a} onClick={changeAnimation}>
+            {a}
+          </button>
         </span>
       ))}
     </div>
