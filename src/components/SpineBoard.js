@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Spine, SpineSprite } from "pixi-spine";
 import * as PIXI from "pixi.js";
-
 import { applyDefaultProps, useApp } from "@inlet/react-pixi";
 
 export let animationNames = [];
@@ -42,14 +41,12 @@ export const SpineBoard = ({
     console.log(selectedTarget);
     console.log("[Spine-Board]onDragMove: ");
     console.log(e);
+    // FIXME: e.data.global 가공 필요. 클릭 지점으로 캐릭터의 '중앙'이 오도록 설정
     selectedTarget.parent.toLocal(e.data.global, null, selectedTarget.position);
   }
 
   function onClick(e) {
-    //console.log("[Spine-Board]onClick: " + selectedTarget);
-    //console.log(e);
     if (selectedTarget) {
-      // FIXME: 모든 캐릭터가 같이 딸려오는 문제
       console.log("[Spine-Board]onClick: ");
       console.log(selectedTarget);
       selectedTarget.position.copyFrom(e.data.global);
@@ -74,6 +71,7 @@ export const SpineBoard = ({
         animationNames = animation.state.data.skeletonData.animations.map(
           (a) => a.name
         );
+        animationNames.push("Delete");
         getAniNames(animationNames);
 
         // mouse and touch envets
@@ -132,12 +130,6 @@ export const SpineBoard = ({
     } catch (error) {
       console.log(error);
     }
-
-    // TODO: add drag listner
-    // 클릭하면 사각형의 'bound'를 표시해주고
-    // 드래그 동안 이동 시킬 수 있게 함
-    // 클릭을 떼는 순간 해당 위치에서 멈춤
-    //
   }, [character]);
 
   // Change animation!!
@@ -149,6 +141,9 @@ export const SpineBoard = ({
     console.log(animation);
 
     // TODO: if animation is 'delete' delete the 'SPINE'
+    if (selectedAnimation === "Delete") {
+      console.log("[Spine-Board] SecondEffect : Delete 선택");
+    }
 
     // set Animation
     try {
