@@ -26,23 +26,23 @@ export const SpineBoard = ({
   function onDragStart(e) {
     e.target.alpha = 0.5;
     selectedTarget = e.target;
-    console.log("[Spine-Board]onDragStart: " + selectedTarget);
+    //console.log("[Spine-Board]onDragStart: " + selectedTarget);
     // Start listening to dragging on the stage
     pixiApp.stage.addListener("pointermove", onDragMove);
   }
 
   function onDragEnd() {
     selectedTarget.alpha = 1;
-    console.log("[Spine-Board]onDragEnd: " + selectedTarget);
+    //console.log("[Spine-Board]onDragEnd: " + selectedTarget);
     // stop listening
     pixiApp.stage.removeListener("pointermove", onDragMove);
   }
 
   function onDragMove(e) {
-    console.log("[Spine-Board]onDragMove: ");
-    console.log(selectedTarget);
-    console.log("[Spine-Board]onDragMove: ");
-    console.log(e);
+    //console.log("[Spine-Board]onDragMove: ");
+    //console.log(selectedTarget);
+    //console.log("[Spine-Board]onDragMove: ");
+    //console.log(e);
     // 중앙
     e.data.global.x -= 0;
     e.data.global.y += 50;
@@ -52,8 +52,8 @@ export const SpineBoard = ({
 
   function onClick(e) {
     if (selectedTarget) {
-      console.log("[Spine-Board]onClick: ");
-      console.log(selectedTarget);
+      //console.log("[Spine-Board]onClick: ");
+      //console.log(selectedTarget);
       // 중앙
       e.data.global.x -= 0;
       e.data.global.y += 50;
