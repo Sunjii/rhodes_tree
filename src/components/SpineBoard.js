@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Spine, SpineSprite } from "pixi-spine";
+import * as PIXI from "pixi.js";
 
-import { useApp } from "@inlet/react-pixi";
+import { applyDefaultProps, useApp } from "@inlet/react-pixi";
 
 export let animationNames = [];
 
@@ -13,6 +14,46 @@ export const SpineBoard = ({
   // access the PIXI.Application
   const pixiApp = useApp();
   pixiApp.stage.interactive = true;
+
+  pixiApp.stage.hitArea = pixiApp.renderer.screen;
+  pixiApp.stage.addListener("click", onClick);
+
+  ///  // evnet fucntions
+  // store the target
+  let selectedTarget;
+  // make semi-transparent add listen to drag-move events
+  function onDragStart(e) {
+    e.target.alpha = 0.5;
+    selectedTarget = e.target;
+    console.log("[Spine-Board]onDragStart: " + selectedTarget);
+    // Start listening to dragging on the stage
+    pixiApp.stage.addListener("pointermove", onDragMove);
+  }
+
+  function onDragEnd() {
+    selectedTarget.alpha = 1;
+    console.log("[Spine-Board]onDragEnd: " + selectedTarget);
+    // stop listening
+    pixiApp.stage.removeListener("pointermove", onDragMove);
+  }
+
+  function onDragMove(e) {
+    // FIXME: Uncaught TypeError: Cannot read properties of undefined (reading 'x')
+    console.log("[Spine-Board]onDragMove: ");
+    console.log(selectedTarget);
+    console.log("[Spine-Board]onDragMove: ");
+    console.log(e);
+    selectedTarget.parent.toLocal(e.data.global, null, selectedTarget.position);
+  }
+
+  function onClick(e) {
+    console.log("[Spine-Board]onClick: " + selectedTarget);
+    console.log(e);
+    // FIXME: Uncaught TypeError: Cannot read properties of undefined (reading 'x')
+    if (selectedTarget) {
+      selectedTarget.position.copyFrom(e.data.global);
+    }
+  }
 
   // set filename
   const json_path = "./charset/char_" + character + ".json";
@@ -32,14 +73,23 @@ export const SpineBoard = ({
         );
         getAniNames(animationNames);
 
+        // mouse and touch envets
+        animation.interactive = true;
+        animation.buttonMode = true;
+
         // set the position and scale
         animation.x = pixiApp.screen.width / randomnumber;
         animation.y = pixiApp.screen.height;
-        animation.scale.set(0.7);
+        animation.scale.set(0.5);
 
         // set animation
         animation.state.setAnimation(0, selectedAnimation, true);
         animation.state.timeScale = 1.0;
+
+        // add listner
+        animation.addListener("pointerdown", onDragStart);
+        animation.addListener("pointerup", onDragEnd);
+        animation.addListener("pointerupoutside", onDragEnd);
 
         // addChild
         animation.name = character;
@@ -50,12 +100,14 @@ export const SpineBoard = ({
         console.log(pixiApp.stage);
 
         // FIXME: myListner 필요 없으면 삭제 예정...
+        /*
         pixiApp.stage.on("myListner", () => {
           // animation list 선택에 따라 해당 애니메이션으로 변경하기
           let anis = selectedAnimation;
           animation.state.setAnimation(0, anis, true);
           console.log("[Spine-Board] stageOn: " + anis);
         });
+        */
 
         console.log(
           "[Spine-Board] : " +
