@@ -2,7 +2,7 @@ import { Sprite, Stage } from "@inlet/react-pixi";
 import React, { useEffect, useState } from "react";
 import { AnimationList } from "./animation-list";
 import { CharacterRadio } from "./character-radio";
-import { SpineConfig } from "./spine-config";
+import { SpineConfig } from "../config/spine-config";
 import { animationNames, SpineBoard } from "./SpineBoard";
 
 export const MainScreen = () => {
@@ -18,8 +18,6 @@ export const MainScreen = () => {
   const getChar = (character) => {
     setCharacter(character);
     console.log("getChar: " + character);
-    // spineboard re-render
-    // 스파인보드를 지우고(?)
   };
 
   const getAniNames = (name) => {
@@ -28,11 +26,9 @@ export const MainScreen = () => {
   };
 
   console.log("Main Screen Rendered!");
-  //<CharacterRadio charList={charList} getChar={getChar} />
 
   const getAnimation = (ani) => {
     setAnimation(ani);
-    //console.log(ani + " selected");
   };
 
   return (

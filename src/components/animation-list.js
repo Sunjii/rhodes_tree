@@ -3,7 +3,6 @@ import React, { useState } from "react";
 export const AnimationList = ({ animationNames, getAni }) => {
   // change animation
   const changeAnimation = (e) => {
-    //console.log("[AnimationList] : " + e.target.value);
     getAni(e.target.value);
   };
 

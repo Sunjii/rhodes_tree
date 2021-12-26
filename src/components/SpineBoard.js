@@ -24,12 +24,9 @@ export const SpineBoard = ({
   useEffect(() => {
     try {
       pixiApp.loader.add(character, json_path).load((loader, resources) => {
-        //console.log(resources[character].spineData);
         const animation = new Spine(resources[character].spineData);
-        console.log("BABA");
 
         // get animation list
-        //console.log(animation.state.data.skeletonData.animations);
         animationNames = animation.state.data.skeletonData.animations.map(
           (a) => a.name
         );
@@ -52,27 +49,10 @@ export const SpineBoard = ({
         console.log(animation.name);
         console.log(pixiApp.stage);
 
-        // Press the screen to play a random animation
-        //const allAnimations = ["Idle", "Start", "Die"];
-        let lastAnimation = "";
-
-        /*
-      pixiApp.stage.on("pointerdown", () => {
-        let anis = "";
-        do {
-          anis =
-            animationNames[Math.floor(Math.random() * animationNames.length)];
-        } while (anis === lastAnimation);
-        animation.state.setAnimation(0, anis, true);
-        lastAnimation = animation;
-        console.log("Point: " + anis);
-      });
-      */
-        // my on
+        // FIXME: myListner 필요 없으면 삭제 예정...
         pixiApp.stage.on("myListner", () => {
           // animation list 선택에 따라 해당 애니메이션으로 변경하기
           let anis = selectedAnimation;
-
           animation.state.setAnimation(0, anis, true);
           console.log("[Spine-Board] stageOn: " + anis);
         });
@@ -88,14 +68,24 @@ export const SpineBoard = ({
     } catch (error) {}
 
     // change animation list
-    const animation = pixiApp.stage.getChildByName(character);
-    animationNames = animation.state.data.skeletonData.animations.map(
-      (a) => a.name
-    );
-    getAniNames(animationNames);
+    try {
+      const animation = pixiApp.stage.getChildByName(character);
+      animationNames = animation.state.data.skeletonData.animations.map(
+        (a) => a.name
+      );
+      getAniNames(animationNames);
+    } catch (error) {
+      console.log(error);
+    }
+
+    // TODO: add drag listner
+    // 클릭하면 사각형의 'bound'를 표시해주고
+    // 드래그 동안 이동 시킬 수 있게 함
+    // 클릭을 떼는 순간 해당 위치에서 멈춤
+    //
   }, [character]);
 
-  // lets render
+  // Change animation!!
   useEffect(() => {
     const animation = pixiApp.stage.getChildByName(character);
     console.log("[Spine-Board] SecondEffect : pixiApp.stage");
@@ -103,7 +93,14 @@ export const SpineBoard = ({
     console.log("[Spine-Board] SecondEffect : animation");
     console.log(animation);
 
-    animation.state.setAnimation(0, selectedAnimation, true);
+    // TODO: if animation is 'delete' delete the 'SPINE'
+
+    // set Animation
+    try {
+      animation.state.setAnimation(0, selectedAnimation, true);
+    } catch (error) {
+      console.log(error);
+    }
 
     console.log(
       "[Spine-Board] : SecondEffect " +
@@ -113,17 +110,6 @@ export const SpineBoard = ({
         " Rendered!"
     );
   }, [selectedAnimation]);
-
-  //[character, selectedAnimation]
-
-  // change animation
-  /*
-  useEffect(() => {
-    console.log(
-      "[Spine-Board] : " + selectedAnimation + " applied to " + character
-    );
-  }, [selectedAnimation]);
-  */
 
   return <></>;
 };

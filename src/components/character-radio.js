@@ -12,27 +12,22 @@ export const CharacterRadio = ({
   const [animationList, setAnimationList] = useState([]);
 
   const handleSelected = (e) => {
-    // set
     // animation 선택 초기화
-    //setAnimation("Idle");
-    //getAnimation("Idle");
     setSelectedChar(e.target.value);
   };
 
   const getAni = (ani) => {
-    //console.log("[CharacterRadio] : ani = " + ani);
     setAnimation(ani);
     getAnimation(ani); // 부모에게 전달
   };
 
-  //
+  // FIXME: 아마 필요 없을듯..?
   const getAnimationList = (selectedChar) => {};
 
   // btn click
   const onClick = (e) => {
     getChar(selectedChar);
     // selectedChar에 해당하는 animation 목록을 가져온다
-    ////todo
     console.log(animationNames);
     setAnimationList(animationNames);
 
@@ -40,11 +35,6 @@ export const CharacterRadio = ({
     setAnimation("Idle");
     getAnimation("Idle");
   };
-
-  //
-  useEffect(() => {
-    console.log("FFFFFF");
-  }, [animationNames]);
 
   return (
     <div>
