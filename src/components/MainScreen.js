@@ -12,6 +12,8 @@ export const MainScreen = () => {
     id: "",
     characterName: "",
   });
+
+  // TODO:
   const { id, characterName } = characterList;
 
   const [charList, setCharList] = useState([
