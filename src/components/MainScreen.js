@@ -55,6 +55,14 @@ export const MainScreen = () => {
       spwanedCharList.filter((spwanedChar) => spwanedChar.spineId !== id)
     );
   };
+  // 삭제 시 목록에서 제거하도록
+  const onRemove = (id) => {
+    // spwanedCharList에서 제거
+    setSpwanedCharList(
+      spwanedCharList.filter((spwanedChar) => spwanedChar.spineId !== id)
+    );
+    // 렌더링도 삭제
+  };
 
   //
   //
@@ -128,13 +136,15 @@ export const MainScreen = () => {
             getAnimationInitialize={getAnimationInitialize}
             onCreated={onCreated}
             onDelete={onDelete}
+            spwanedCharList={spwanedCharList}
+            nextId={nextId}
           />
         </Stage>
       </div>
       <button onClick={onClickScreenshot}>Screenshot</button>
       <div>
         {spwanedCharList.length !== 0 ? (
-          <SpwanManager spwanedCharList={spwanedCharList} />
+          <SpwanManager spwanedCharList={spwanedCharList} onRemove={onRemove} />
         ) : (
           ""
         )}

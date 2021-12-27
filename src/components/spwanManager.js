@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 
-export const SpwanManager = ({ spwanedCharList }) => {
+export const SpwanManager = ({ spwanedCharList, onRemove }) => {
   console.log("[SpwanManager]: call..");
   console.log(spwanedCharList);
+
+  const [wantDelete, setWantDelete] = useState();
 
   //TODO: spwanManager에서 지원할 2가지 기능 구현
   // 삭제와 애니메이션 변경 기능
@@ -12,7 +14,10 @@ export const SpwanManager = ({ spwanedCharList }) => {
   return (
     <div>
       {spwanedCharList.map((c) => (
-        <span>{c.spine.name}</span>
+        <form>
+          {c.spine.name}
+          <button onClick={() => onRemove(c.spineId)}>Delete</button>
+        </form>
       ))}
     </div>
   );

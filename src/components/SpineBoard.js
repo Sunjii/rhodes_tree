@@ -13,6 +13,8 @@ export const SpineBoard = ({
   getAnimationInitialize,
   onCreated,
   onDelete,
+  spwanedCharList,
+  nextId,
 }) => {
   // access the PIXI.Application
   const pixiApp = useApp();
@@ -90,6 +92,10 @@ export const SpineBoard = ({
       );
       animationNames.push("Delete");
       getAniNames(animationNames);
+
+      // set spineId
+      console.log("spineId is ", nextId.current);
+      animation.spineId = nextId.current;
 
       // mouse and touch envets
       animation.interactive = true;
