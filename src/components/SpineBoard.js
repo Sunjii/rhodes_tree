@@ -11,6 +11,8 @@ export const SpineBoard = ({
   animation: selectedAnimation,
   getPixiApp,
   getAnimationInitialize,
+  onCreated,
+  onDelete,
 }) => {
   // access the PIXI.Application
   const pixiApp = useApp();
@@ -115,6 +117,10 @@ export const SpineBoard = ({
       console.log(animation.name);
       console.log(pixiApp.stage);
 
+      // MainScreen의 목록에 추가하기
+      onCreated(animation);
+      //onCreateddd();
+
       console.log(
         "[Spine-Board] : " +
           character +
@@ -142,44 +148,53 @@ export const SpineBoard = ({
 
   // Change animation!!
   useEffect(() => {
-    const animation = pixiApp.stage.getChildByName(character);
-    console.log("[Spine-Board] SecondEffect : pixiApp.stage");
-    console.log(pixiApp.stage);
-    console.log("[Spine-Board] SecondEffect : animation");
-    console.log(animation);
+    // FIXME: 늘 첫벗째 캐릭터의 애니메이션이 변경됨!
+    // byId 같은거 없을까?
+    try {
+      const animation = pixiApp.stage.getChildAt(0);
 
-    if (selectedAnimation === "Delete") {
-      console.log("[Spine-Board] SecondEffect : Delete 선택");
-      console.log(animation);
-
-      // TODO: index 기반 삭제가 아닌, 이름으로 삭제하도록 해야함
-      // 아니면 그냥 0번만 지우도록?
-      // idea 1. 따로 목록을 만들어서 삭제할 수 있게 하자 like todo-list
-
-      animation.parent.removeChildAt(0);
-
-      // 삭제 후 delete 선택한 내역도 초기화 (delete 연달아 누를 수 있게)
-      getAnimationInitialize("");
-
-      console.log(animation);
+      //const animation = pixiApp.stage.getChildByName(character);
+      console.log("[Spine-Board] SecondEffect : pixiApp.stage");
       console.log(pixiApp.stage);
-      return;
-    } else {
-      // set Animation
-      try {
-        animation.state.setAnimation(0, selectedAnimation, true);
+      console.log("[Spine-Board] SecondEffect : animation");
+      console.log(animation);
+
+      if (selectedAnimation === "Delete") {
+        console.log("[Spine-Board] SecondEffect : Delete 선택");
+        console.log(animation);
+
+        // TODO: index 기반 삭제가 아닌, 이름으로 삭제하도록 해야함
+        // 아니면 그냥 0번만 지우도록?
+        // idea 1. 따로 목록을 만들어서 삭제할 수 있게 하자 like todo-list
+
+        animation.parent.removeChildAt(0);
+
+        // 삭제 후 delete 선택한 내역도 초기화 (delete 연달아 누를 수 있게)
         getAnimationInitialize("");
-        console.log(
-          "[Spine-Board] : SecondEffect " +
-            character +
-            " with " +
-            selectedAnimation +
-            " Rendered!"
-        );
-      } catch (error) {
-        console.log(error);
+        // spwanedCharList 에서도 삭제
+        onDelete();
+
+        console.log(animation);
+        console.log(pixiApp.stage);
+        return;
+      } else {
+        // set Animation
+        try {
+          animation.state.setAnimation(0, selectedAnimation, true);
+          getAnimationInitialize("");
+          console.log(
+            "[Spine-Board] : SecondEffect " +
+              character +
+              " with " +
+              selectedAnimation +
+              " Rendered!"
+          );
+        } catch (error) {
+          console.log(error);
+        }
       }
-    }
+    } catch (error) {}
+
     //
     //
     //

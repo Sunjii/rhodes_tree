@@ -1,9 +1,9 @@
 import { Sprite, Stage } from "@inlet/react-pixi";
-import React, { useEffect, useState } from "react";
-import { AnimationList } from "./animation-list";
+import React, { useEffect, useRef, useState } from "react";
 import { CharacterRadio } from "./character-radio";
 import { SpineConfig } from "../config/spine-config";
-import { animationNames, SpineBoard } from "./SpineBoard";
+import { SpineBoard } from "./SpineBoard";
+import { SpwanManager } from "./spwanManager";
 
 export const MainScreen = () => {
   const [character, setCharacter] = useState("None");
@@ -16,6 +16,49 @@ export const MainScreen = () => {
   const [animation, setAnimation] = useState("Idle");
 
   const [pixiApp, setPixiApp] = useState();
+
+  //
+  //
+  //
+
+  const [spwCharInputs, setSpwCharInputs] = useState({
+    spineId: "",
+    spine: "",
+  });
+  const { spineId, spine } = spwCharInputs;
+  // 생성된 캐릭터 목록
+  const [spwanedCharList, setSpwanedCharList] = useState([]);
+  const nextId = useRef(0);
+  // [ {id: 1, Spine:...}, {id:2,Spine:..}, .. ]
+
+  // Spine이 생성된 경우 목록에 추가
+  const onCreated = (a) => {
+    console.log("------------");
+    console.log(a);
+    //const { charName, value } = c.name;
+    //setSpwanedCharList([...spwanedCharList, a]);
+
+    const spawnedChar = {
+      spineId: nextId.current,
+      spine: a,
+    };
+    setSpwanedCharList([...spwanedCharList, spawnedChar]);
+    nextId.current += 1;
+
+    //console.log(spwanedCharList);
+  };
+
+  // 삭제 시 목록에서 제거
+  const onDelete = (id) => {
+    // 현재는 0번이 삭제되므로 0번 항목 제거
+    setSpwanedCharList(
+      spwanedCharList.filter((spwanedChar) => spwanedChar.spineId !== id)
+    );
+  };
+
+  //
+  //
+  //
 
   const getChar = (character) => {
     setCharacter(character);
@@ -83,10 +126,19 @@ export const MainScreen = () => {
             animation={animation}
             getPixiApp={getPixiApp}
             getAnimationInitialize={getAnimationInitialize}
+            onCreated={onCreated}
+            onDelete={onDelete}
           />
         </Stage>
       </div>
       <button onClick={onClickScreenshot}>Screenshot</button>
+      <div>
+        {spwanedCharList.length !== 0 ? (
+          <SpwanManager spwanedCharList={spwanedCharList} />
+        ) : (
+          ""
+        )}
+      </div>
 
       <p>
         Arknights © is owned by Hypergryph, Yostar | All logos and trademarks
