@@ -11,13 +11,17 @@ export const SpwanManager = ({ spwanedCharList, onRemove }) => {
   // 삭제 버튼은 목록에 달아두고
   // 항목 선택시 그에 해당하는 애니메이션 리스트를 띄워주고 작동하도록 하자
 
+  const onClick = (e) => {
+    e.preventDefault();
+  };
+
   return (
     <div>
       {spwanedCharList.map((c) => (
-        <form>
+        <div>
           {c.spine.name}
-          <button onClick={() => onRemove(c.spineId)}>Delete</button>
-        </form>
+          <button onClick={(e) => onRemove(c.spineId, c.spine)}>Delete</button>
+        </div>
       ))}
     </div>
   );

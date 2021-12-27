@@ -174,7 +174,6 @@ export const SpineBoard = ({
         // idea 1. 따로 목록을 만들어서 삭제할 수 있게 하자 like todo-list
 
         animation.parent.removeChildAt(0);
-
         // 삭제 후 delete 선택한 내역도 초기화 (delete 연달아 누를 수 있게)
         getAnimationInitialize("");
         // spwanedCharList 에서도 삭제
@@ -205,6 +204,18 @@ export const SpineBoard = ({
     //
     //
   }, [selectedAnimation]);
+
+  // spwList가 변경되면 (삭제 or 애니메이션 변경(?)되면)
+  // 해당 상태를 반영하도록
+  const findDelet = (id) => {
+    pixiApp.removeChildAt(id);
+
+    /*
+    지우기 위해서는 animation.parent.removeChildAt() 혹은
+    removeChildByName()
+    
+    */
+  };
 
   return <></>;
 };

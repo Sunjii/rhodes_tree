@@ -56,12 +56,29 @@ export const MainScreen = () => {
     );
   };
   // 삭제 시 목록에서 제거하도록
-  const onRemove = (id) => {
+  const onRemove = (id, spine) => {
+    console.log(id);
+    console.log(spine);
     // spwanedCharList에서 제거
     setSpwanedCharList(
       spwanedCharList.filter((spwanedChar) => spwanedChar.spineId !== id)
     );
     // 렌더링도 삭제
+    // FIXME: 스파인 컨테이너는 자동적으로 정렬된다
+    // 그러나 내가 정의한 spineId는 그러하지 않음.
+    // 0 1 2 3 에서 2번을 삭제시키면...
+    // 스파인 컨테이너는 0 1 2
+    // spwCharList의 spineID는 0 1 3
+    // 하지만 spwCharList의 인덱스는 0 1 2임!!!
+
+    // spineID를 굳이 쓰지 말고...
+    // 그냥 spwCharList의 인덱스를 쓰면 되지 않나??
+    console.log(spine.parent);
+    console.log(spwanedCharList);
+
+    // id에 해당하는 인덱스를 찾는다
+
+    spine.parent.removeChildAt(id);
   };
 
   //
