@@ -39,10 +39,11 @@ export const MainScreen = () => {
     //setSpwanedCharList([...spwanedCharList, a]);
 
     const spawnedChar = {
-      spineId: nextId.current,
+      //spineId: nextId.current,
       spine: a,
     };
-    setSpwanedCharList([...spwanedCharList, spawnedChar]);
+    //setSpwanedCharList([...spwanedCharList, spawnedChar]);
+    setSpwanedCharList([...spwanedCharList, a]);
     nextId.current += 1;
 
     //console.log(spwanedCharList);
@@ -50,18 +51,31 @@ export const MainScreen = () => {
 
   // 삭제 시 목록에서 제거
   const onDelete = (id) => {
-    // 현재는 0번이 삭제되므로 0번 항목 제거
     setSpwanedCharList(
       spwanedCharList.filter((spwanedChar) => spwanedChar.spineId !== id)
     );
   };
   // 삭제 시 목록에서 제거하도록
-  const onRemove = (id, spine) => {
-    console.log(id);
+  const onRemove = (/*sId, spine,*/ spine) => {
+    setSpwanedCharList(
+      spwanedCharList.filter((spwanedChar) => spwanedChar.name !== spine.name)
+      //spwanedCharList.filter((spwanedChar) => spwanedChar.id !== spine.id)
+    );
+
+    // spine 제거
+    // 자기 자신을 지우는 함수는 없나?
+    // 혹은 index 기반이 아닌 id에 기반한 삭제 함수는 없나?
+    //spine.parent.remove;
+    const delId = spine.parent.getChildIndex(spine);
+    spine.parent.removeChildAt(delId);
+
+    /*
+    console.log(c);
+    console.log(sId);
     console.log(spine);
     // spwanedCharList에서 제거
     setSpwanedCharList(
-      spwanedCharList.filter((spwanedChar) => spwanedChar.spineId !== id)
+      spwanedCharList.filter((spwanedChar) => spwanedChar.spineId !== sId)
     );
     // 렌더링도 삭제
     // FIXME: 스파인 컨테이너는 자동적으로 정렬된다
@@ -74,11 +88,14 @@ export const MainScreen = () => {
     // spineID를 굳이 쓰지 말고...
     // 그냥 spwCharList의 인덱스를 쓰면 되지 않나??
     console.log(spine.parent);
+    console.log(spine.parent.children[sId]);
     console.log(spwanedCharList);
 
     // id에 해당하는 인덱스를 찾는다
+    spine.parent.getChildAt(sId);
 
-    spine.parent.removeChildAt(id);
+    spine.parent.removeChildAt(sId);
+    */
   };
 
   //

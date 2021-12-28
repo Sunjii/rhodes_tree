@@ -115,8 +115,10 @@ export const SpineBoard = ({
       animation.addListener("pointerup", onDragEnd);
       animation.addListener("pointerupoutside", onDragEnd);
 
+      // set name and id
+      animation.id = nextId.current;
+      animation.name = character + "_" + nextId.current;
       // addChild
-      animation.name = character;
       pixiApp.stage.addChild(animation);
 
       console.log("[Spine-Board] FirstEffect : ");

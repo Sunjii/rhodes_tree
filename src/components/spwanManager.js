@@ -19,8 +19,10 @@ export const SpwanManager = ({ spwanedCharList, onRemove }) => {
     <div>
       {spwanedCharList.map((c) => (
         <div>
-          {c.spine.name}
-          <button onClick={(e) => onRemove(c.spineId, c.spine)}>Delete</button>
+          {c./*spine.*/ name}
+          <button onClick={(e) => onRemove(/*c.spineId, c.spine,*/ c)}>
+            Delete
+          </button>
         </div>
       ))}
     </div>
