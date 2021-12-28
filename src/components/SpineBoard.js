@@ -13,6 +13,7 @@ export const SpineBoard = ({
   getAnimationInitialize,
   onCreated,
   nextId,
+  lastChoice,
 }) => {
   // access the PIXI.Application
   const pixiApp = useApp();
@@ -153,10 +154,17 @@ export const SpineBoard = ({
 
   // Change animation!!
   useEffect(() => {
-    // FIXME: 늘 첫벗째 캐릭터의 애니메이션이 변경됨!
+    // TODO: SpwList에서 선택한 녀석의 애니메이션을 변경하도록
+    // spw의 선택사항을 담은 state를 가져오자
+    // 해당 state는 ainmation list 에도 보내서 애니메이션 목록을 업데이트 시키자
+    // 보내는 역할은 main에서 담당.
+    //
+
+    // 이름 기반으로 선택 후, 애니메이션
     // byId 같은거 없을까?
     try {
-      const animation = pixiApp.stage.getChildAt(0);
+      const animation = pixiApp.stage.getChildByName(lastChoice);
+      //const animation = pixiApp.stage.getChildAt(0);
 
       //const animation = pixiApp.stage.getChildByName(character);
       console.log("[Spine-Board] SecondEffect : pixiApp.stage");
@@ -183,7 +191,7 @@ export const SpineBoard = ({
     //
     //
     //
-  }, [selectedAnimation]);
+  }, [selectedAnimation, lastChoice]);
 
   return <></>;
 };

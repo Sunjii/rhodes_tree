@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-export const SpwanManager = ({ spwanedCharList, onRemove }) => {
+export const SpwanManager = ({ spwanedCharList, onRemove, onElementClick }) => {
   console.log("[SpwanManager]: call..");
   console.log(spwanedCharList);
 
@@ -17,7 +17,7 @@ export const SpwanManager = ({ spwanedCharList, onRemove }) => {
     <div>
       {spwanedCharList.map((c) => (
         <div>
-          {c.name}
+          <span onClick={(e) => onElementClick(c)}>{c.name}</span>
           <button onClick={(e) => onRemove(c)}>Delete</button>
         </div>
       ))}
