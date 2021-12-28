@@ -89,8 +89,7 @@ export const SpineBoard = ({
       animationNames = animation.state.data.skeletonData.animations.map(
         (a) => a.name
       );
-      animationNames.push("Delete");
-      getAniNames(animationNames);
+      //getAniNames(animationNames);
 
       // set spineId
       console.log("spineId is ", nextId.current);
@@ -106,7 +105,7 @@ export const SpineBoard = ({
       animation.scale.set(0.5);
 
       // set animation
-      animation.state.setAnimation(0, selectedAnimation, true);
+      animation.state.setAnimation(0, "Idle", true);
       animation.state.timeScale = 1.0;
 
       // add listner
@@ -137,31 +136,23 @@ export const SpineBoard = ({
     });
 
     // change animation list
+    /*
     try {
       const animation = pixiApp.stage.getChildByName(character);
       animationNames = animation.state.data.skeletonData.animations.map(
         (a) => a.name
       );
-      animationNames.push("Delete");
       getAniNames(animationNames);
     } catch (error) {
       console.log("[Spine-Board] firstEffect: fail to change animation list");
       console.log(error);
     }
-
+*/
     console.log("[Spine-Board] firstEffect : out loader.add");
   }, [character]);
 
   // Change animation!!
   useEffect(() => {
-    // TODO: SpwList에서 선택한 녀석의 애니메이션을 변경하도록
-    // spw의 선택사항을 담은 state를 가져오자
-    // 해당 state는 ainmation list 에도 보내서 애니메이션 목록을 업데이트 시키자
-    // 보내는 역할은 main에서 담당.
-    //
-
-    // 이름 기반으로 선택 후, 애니메이션
-    // byId 같은거 없을까?
     try {
       const animation = pixiApp.stage.getChildByName(lastChoice);
       //const animation = pixiApp.stage.getChildAt(0);

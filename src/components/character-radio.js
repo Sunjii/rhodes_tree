@@ -31,7 +31,7 @@ export const CharacterRadio = ({
 
     // animation 선택 초기화
     setAnimation("Idle");
-    getAnimation("Idle");
+    //getAnimation("Idle");
     // character 선택 초기화
     try {
       for (let r in document.getElementsByName("CRadio")) {
@@ -66,7 +66,7 @@ export const CharacterRadio = ({
           ) : (
             ""
           )}
-          {selectedChar ? <p>You selected {selectedChar}</p> : ""}
+          {selectedChar ? <p>{selectedChar} Spwan</p> : ""}
         </div>
         <div>{selectedChar ? <CharacterSizeBar /> : ""}</div>
         <div>
