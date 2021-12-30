@@ -88,7 +88,6 @@ export const MainScreen = () => {
   // TODO: screen shot 기능 추가
   // 가능하다면..? gif 짤 쪄내기
   let wait = false;
-  let waiting = false;
   const onClickScreenshot = () => {
     takeScreenshot();
   };
@@ -98,11 +97,6 @@ export const MainScreen = () => {
   };
   const getAnimationInitialize = (a) => {
     setAnimation(a);
-  };
-  const getCharacterToArr = (c) => {
-    // TODO : 캐릭터 생성 내역을 배열로 관리하자!
-
-    setCharacter("None");
   };
 
   function takeScreenshot() {
