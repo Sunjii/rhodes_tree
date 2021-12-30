@@ -9,7 +9,7 @@ export const CharacterRadio = ({
   getAnimation,
 }) => {
   const [selectedChar, setSelectedChar] = useState();
-  const [animation, setAnimation] = useState("Idle");
+  const [animation, setAnimation] = useState("Default");
   const [animationList, setAnimationList] = useState([]);
 
   const handleSelected = (e) => {
@@ -24,6 +24,12 @@ export const CharacterRadio = ({
 
   // btn click
   const onClick = (e) => {
+    // object 삽입인 경우 처리
+    if (selectedChar === "tree") {
+      //
+      console.log("TREE");
+    }
+
     getChar(selectedChar);
     // selectedChar에 해당하는 animation 목록을 가져온다
     console.log(animationNames);
@@ -31,7 +37,7 @@ export const CharacterRadio = ({
 
     // animation 선택 초기화
     setAnimation("Idle");
-    getAnimation("Idle");
+
     // character 선택 초기화
     try {
       for (let r in document.getElementsByName("CRadio")) {
@@ -66,7 +72,7 @@ export const CharacterRadio = ({
           ) : (
             ""
           )}
-          {selectedChar ? <p>You selected {selectedChar}</p> : ""}
+          {selectedChar ? <p>{selectedChar} Spwan</p> : ""}
         </div>
         <div>{selectedChar ? <CharacterSizeBar /> : ""}</div>
         <div>

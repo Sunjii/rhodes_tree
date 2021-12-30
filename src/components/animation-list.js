@@ -4,6 +4,7 @@ export const AnimationList = ({ animationNames, getAni }) => {
   // change animation
   const changeAnimation = (e) => {
     getAni(e.target.value);
+    console.log("[animation-list] select: ");
     console.log(e.target.value);
     e.preventDefault();
   };
