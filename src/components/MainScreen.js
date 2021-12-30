@@ -29,6 +29,7 @@ export const MainScreen = () => {
     "char_474_glady",
     "build_char_002_amiya_winter",
     "build_char_274_astesi_epoque",
+    "build_char_235_jesica_nian",
   ]);
   const [animationNames, setAnimationNames] = useState([]);
   const [animation, setAnimation] = useState("Default");
@@ -51,6 +52,7 @@ export const MainScreen = () => {
   // spwlist 클릭한 요소 기준의 애니메이션 목록 로딩
   const onElementClick = (spine) => {
     const www = spine.state.data.skeletonData.animations.map((a) => a.name);
+    www.push("Back");
     console.log("[MainScreen}: onElementclick");
     // 애니목록은 가져와짐
     getAniNames(www);

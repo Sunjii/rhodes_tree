@@ -106,6 +106,7 @@ export const SpineBoard = ({
       animationNames = animation.state.data.skeletonData.animations.map(
         (a) => a.name
       );
+      animationNames.push("Back");
       //getAniNames(animationNames);
 
       // set spineId
@@ -118,7 +119,7 @@ export const SpineBoard = ({
 
       // set the position and scale
       animation.x = pixiApp.screen.width / randomnumber;
-      animation.y = pixiApp.screen.height;
+      animation.y = pixiApp.screen.height - 100;
       animation.scale.set(0.4);
 
       // set animation
@@ -166,6 +167,13 @@ export const SpineBoard = ({
       console.log(pixiApp.stage);
       console.log("[Spine-Board] SecondEffect : animation");
       console.log(animation);
+
+      // filp
+      if (selectedAnimation === "Back") {
+        animation.scale.x = animation.scale.x * -1;
+        getAnimationInitialize("");
+        return;
+      }
 
       // set Animation
       try {
