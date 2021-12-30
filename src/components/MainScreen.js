@@ -30,6 +30,9 @@ export const MainScreen = () => {
     "build_char_002_amiya_winter",
     "build_char_274_astesi_epoque",
     "build_char_235_jesica_nian",
+    "build_char_340_shwaz_snow",
+    "build_char_102_texas_epoque",
+    "build_char_290_vigna_as",
   ]);
   const [animationNames, setAnimationNames] = useState([]);
   const [animation, setAnimation] = useState("Default");
