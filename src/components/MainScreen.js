@@ -141,6 +141,7 @@ export const MainScreen = () => {
             onCreated={onCreated}
             nextId={nextId}
             lastChoice={lastChoice}
+            onElementClick={onElementClick}
           />
         </Stage>
       </div>

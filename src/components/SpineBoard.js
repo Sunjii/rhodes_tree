@@ -15,6 +15,7 @@ export const SpineBoard = ({
   onCreated,
   nextId,
   lastChoice,
+  onElementClick,
 }) => {
   // access the PIXI.Application
   const pixiApp = useApp();
@@ -24,7 +25,7 @@ export const SpineBoard = ({
   if (!loading) {
     // background img
     const back = new PIXI.Container();
-    const backgroundSprite = PIXI.Sprite.from("./charset/tree.png");
+    const backgroundSprite = PIXI.Sprite.from("./charset/tree2.png");
     back.addChild(backgroundSprite);
     pixiApp.stage.addChild(back);
     loading = true;
@@ -66,6 +67,9 @@ export const SpineBoard = ({
 
   function onClick(e) {
     if (selectedTarget) {
+      //
+      console.log("ONONONONONO");
+      onElementClick(e);
       //console.log("[Spine-Board]onClick: ");
       //console.log(selectedTarget);
       // 중앙
