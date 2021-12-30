@@ -11,6 +11,7 @@ import { SpineConfig } from "../config/spine-config";
 import { SpineBoard } from "./SpineBoard";
 import { SpwanManager } from "./spwanManager";
 import * as PIXI from "pixi.js";
+import { char_list } from "../config/char-list";
 
 export const MainScreen = () => {
   const [character, setCharacter] = useState("None");
@@ -23,17 +24,7 @@ export const MainScreen = () => {
   // TODO:
   const { id, characterName } = characterList;
 
-  const [charList, setCharList] = useState([
-    "char_1012_skadi2",
-    "char_003_kalts",
-    "char_474_glady",
-    "build_char_002_amiya_winter",
-    "build_char_274_astesi_epoque",
-    "build_char_235_jesica_nian",
-    "build_char_340_shwaz_snow",
-    "build_char_102_texas_epoque",
-    "build_char_290_vigna_as",
-  ]);
+  const [charList, setCharList] = useState(char_list);
   const [animationNames, setAnimationNames] = useState([]);
   const [animation, setAnimation] = useState("Default");
   const [pixiApp, setPixiApp] = useState();
