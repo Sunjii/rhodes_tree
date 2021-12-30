@@ -2,7 +2,7 @@
   "name": "rhodes_tree",
   "version": "0.1.0",
   "private": true,
-  "homepage": "http://Sunjii.github.io/rhodes_tree",
+  "homepage": ".",
   "dependencies": {
     "@inlet/react-pixi": "^6.6.5",
     "@testing-library/jest-dom": "^5.16.1",

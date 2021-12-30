@@ -68,9 +68,7 @@ export const SpineBoard = ({
   function onClick(e) {
     if (selectedTarget) {
       //
-      console.log("ONONONONONO");
-      console.log(e);
-      onElementClick(e);
+      onElementClick(selectedTarget);
       //console.log("[Spine-Board]onClick: ");
       //console.log(selectedTarget);
       // 중앙
